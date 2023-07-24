@@ -8,11 +8,11 @@ on:
 jobs:
   test_and_build:
     name: Test and Build
-    runs-on: macos-11
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node: [16]
 
     steps:
       - name: Checkout Code
@@ -36,7 +36,7 @@ jobs:
   dev_delpoy:
     name: Dev Deploy
     needs: test_and_build
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     environment:
       name: dev
       url: https://catalog-mfe-dev.netlify.app
@@ -84,7 +84,7 @@ jobs:
   staging_delpoy:
     name: Staging Deploy
     needs: mfe_e2e
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     environment:
       name: staging
       url: https://catalog-mfe-staging.netlify.app
@@ -114,7 +114,7 @@ jobs:
   app_e2e:
     name: App E2E
     needs: staging_delpoy
-    runs-on: macos-11
+    runs-on: ubuntu-latest
 
     steps:
       - name: e2es
@@ -123,7 +123,7 @@ jobs:
   prod_delpoy:
     name: Prod Deploy
     needs: app_e2e
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     environment:
       name: production
       url: https://catalog-mfe.netlify.app
