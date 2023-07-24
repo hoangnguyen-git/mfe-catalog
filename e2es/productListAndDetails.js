@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture`ProductListAndDetails`
-  .page`https://catalog-mfe-dev.netlify.app`
+  .page`https://catalog-mfe-demo-dev.netlify.app`
 
 test('User should see a list of products and navigate to details of any', async t => {
   await t.expect(Selector('.product_card').count).eql(20);

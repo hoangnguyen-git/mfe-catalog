@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v1
 
-      - name: Set up Node  
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: https://catalog-mfe-dev.netlify.app
+      url: https://catalog-mfe-demo-dev.netlify.app
 
     steps:
       - name: Download Latest Artifact
@@ -54,7 +54,7 @@ jobs:
           path: dist
 
       - name: Deploy to Netlify Dev
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: "./dist"
           production-branch: main
