@@ -55,7 +55,7 @@ export default function ProductDetails() {
 
         )
       }
-      <MicroFrontend src="http://localhost:3000/reviews/reviewWithContainer.bundle.js" />
+      <MicroFrontend src="https://e-commerce-microfronend-63d7f9bae764.herokuapp.com/reviews/reviewWithContainer.bundle.js" />
     </>
   );
 }
