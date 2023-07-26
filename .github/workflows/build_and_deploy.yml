@@ -94,7 +94,7 @@ jobs:
     needs: mfe_e2e
     runs-on: ubuntu-latest
     environment:
-      name: staging
+      name: qa
       url: https://catalog-mfe-staging.netlify.app
 
     steps:
@@ -153,12 +153,12 @@ jobs:
             allure-report
           retention-days: 30
 
-  prod_delpoy:
-    name: Prod Deploy
+  uat_delpoy:
+    name: UAT Deploy
     needs: app_e2e
     runs-on: ubuntu-latest
     environment:
-      name: production
+      name: uat
       url: https://catalog-mfe.netlify.app
 
     steps:
