@@ -10,13 +10,9 @@ jobs:
     name: Test and Build
     runs-on: ubuntu-latest
 
-    # strategy:
-    #   matrix:
-    #     node: [16]
-
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Set up Node
         uses: actions/setup-node@v3
@@ -73,18 +69,21 @@ jobs:
     needs: dev_delpoy
     runs-on: ubuntu-latest
 
-    # strategy:
-    #   matrix:
-    #     node-version: [14.x]
-
     steps:
-      - name: Run TestCafe Tests
-        uses: actions/checkout@v1
+      - name: Run Playwright Tests
+        uses: actions/checkout@v3
 
-      # - name: Run TestCafe Tests
-      #   uses: DevExpress/testcafe-action@latest
-      #   with:
-      #     args: "chrome e2es"
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Build
+        run: npm run e2e
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test result
+          path: ./html-report
 
   staging_delpoy:
     name: Staging Deploy
@@ -102,7 +101,7 @@ jobs:
           path: dist
 
       - name: Deploy to Netlify Staging
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: "./dist"
           production-branch: main
@@ -123,7 +122,7 @@ jobs:
 
     steps:
       - name: e2es
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
   prod_delpoy:
     name: Prod Deploy
@@ -141,7 +140,7 @@ jobs:
           path: dist
 
       - name: Deploy to Netlify Prod
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: "./dist"
           production-branch: main
