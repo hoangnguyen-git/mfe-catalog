@@ -79,7 +79,7 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Build
+      - name: Run test
         run: npm run e2e
 
       - name: Upload Artifact
@@ -87,9 +87,10 @@ jobs:
         with:
           name: Test result
           path: ./html-report
+          retention-days: 30
 
-  staging_delpoy:
-    name: Staging Deploy
+  qa_delpoy:
+    name: QA Deploy
     needs: mfe_e2e
     runs-on: ubuntu-latest
     environment:
@@ -103,7 +104,7 @@ jobs:
           name: distribution
           path: dist
 
-      - name: Deploy to Netlify Staging
+      - name: Deploy to Netlify QA
         uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: "./dist"
@@ -120,12 +121,37 @@ jobs:
 
   app_e2e:
     name: App E2E
-    needs: staging_delpoy
+    needs: qa_delpoy
     runs-on: ubuntu-latest
 
     steps:
-      - name: e2es
+      - name: Checkout E2E Playwright repo
         uses: actions/checkout@v3
+        with:
+          repository: https://github.com/hoangnguyen-git/e2e-playwright.git
+
+      - name: Install Dependencies
+        run: npm i
+  
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run test
+        run: npx playwright test
+
+      - name: Generate Allure Report
+        if: always()
+        run: npm run report
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test result
+          path: |
+            html-report
+            allure-report
+          retention-days: 30
 
   prod_delpoy:
     name: Prod Deploy
