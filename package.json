@@ -2,23 +2,23 @@
   "name": "@mfe-patterns/catalog",
   "version": "1.0.3",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mfe-patterns/build-time"
+  },
+  "license": "ISC",
+  "author": "vishal sharma",
   "main": "./dist/Catalog.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "webpack serve --config config/webpack.dev.js",
     "build": "webpack --config config/webpack.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "e2e": "testcafe chrome e2es"
+    "e2e": "npx playwright test productListsAndDetails.spec.ts --project=chromium"
   },
-  "author": "vishal sharma",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mfe-patterns/build-time"
-  },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -31,6 +31,9 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
+    "@playwright/test": "^1.36.1",
+    "allure-commandline": "^2.23.0",
+    "allure-playwright": "^2.4.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.0",
