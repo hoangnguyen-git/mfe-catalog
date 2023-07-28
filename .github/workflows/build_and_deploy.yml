@@ -41,12 +41,13 @@ jobs:
 
       - name: Contract Tests
         run: npm run test:consumer
+        working-directory: pact
 
       - name: Publish Contract
         uses: actions/upload-artifact@v3
         with:
           name: contract
-          path: ./__tests__/contract/pacts
+          path: ./pact/__tests__/contract/pacts
 
 
   dev_delpoy:
