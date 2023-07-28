@@ -6,8 +6,8 @@ on:
       - "main"
 
 jobs:
-  test_and_build:
-    name: Test and Build
+  test:
+    name: Unit Test and Contract Test
     runs-on: ubuntu-latest
 
     steps:
@@ -34,9 +34,24 @@ jobs:
           name: distribution
           path: ./dist
 
+      - name: Open Pact
+        run: |
+          cd pact
+          npm i
+
+      - name: Contract Tests
+        run: npm run test:consumer
+
+      - name: Publish Contract
+        uses: actions/upload-artifact@v3
+        with:
+          name: contract
+          path: ./__tests__/contract/pacts
+
+
   dev_delpoy:
     name: Dev Deploy
-    needs: test_and_build
+    needs: test
     runs-on: ubuntu-latest
     environment:
       name: dev

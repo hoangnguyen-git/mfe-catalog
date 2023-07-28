@@ -5,3 +5,4 @@ dist/
 allure-results
 html-report
 test-results
+pact/node_modules
