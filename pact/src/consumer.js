@@ -5,7 +5,7 @@ const getApiEndpoint = "http://localhost:8081"
 
 const getClients = async () => {
   const res = await axios
-    .get(`${getApiEndpoint}/client`)
+    .get(`${getApiEndpoint}/clients`)
     .then((res) => {
       return res
     })
@@ -17,7 +17,7 @@ const getClients = async () => {
 
 const getClient = async (id) => {
       const res = await axios
-        .get(`${getApiEndpoint}/client/${id}`)
+        .get(`${getApiEndpoint}/clients/${id}`)
         .then((res) => {
           return res;
         })
@@ -29,7 +29,7 @@ const getClient = async (id) => {
 
 const postClient = async (body) => {
       const res = await axios
-      .post(`${getApiEndpoint}/client`, body, {'Content-Type': 'application/json;charset=utf-8'})
+      .post(`${getApiEndpoint}/clients`, body, {'Content-Type': 'application/json;charset=utf-8'})
       .then((res) => {
           return res
         })
